@@ -1,0 +1,99 @@
+-- 1. Total Records
+--SELECT COUNT(*) FROM Flights;
+
+---- 2. Top Airlines by Number of Flights
+--SELECT
+--    AIRLINE,
+--    COUNT(*) AS total_flights
+--FROM Flights
+--GROUP BY AIRLINE
+--ORDER BY total_flights DESC
+--LIMIT 10;
+
+---- 3. Average Arrival Delay per Airline
+--SELECT
+--    AIRLINE,
+--    ROUND(AVG(ARRIVAL_DELAY),2) AS avg_arrival_delay
+--FROM Flights
+--WHERE CANCELLED = 0
+--GROUP BY AIRLINE
+--ORDER BY avg_arrival_delay DESC;
+
+---- 4. On-Time Performance per Airline
+--SELECT
+--    AIRLINE,
+--    COUNT(*) AS total_flights,
+--    SUM(CASE WHEN ARRIVAL_DELAY <= 0 THEN 1 ELSE 0 END) AS on_time_flights,
+--    ROUND(100.0 * SUM(CASE WHEN ARRIVAL_DELAY <= 0 THEN 1 ELSE 0 END) / COUNT(*),2) AS on_time_percentage
+--FROM Flights
+--WHERE CANCELLED = 0
+--GROUP BY AIRLINE
+--ORDER BY on_time_percentage DESC;
+
+---- 5. Top Airports by Departures
+--SELECT
+--    ORIGIN_AIRPORT,
+--    COUNT(*) AS departures
+--FROM Flights
+--GROUP BY ORIGIN_AIRPORT
+--ORDER BY departures DESC
+--LIMIT 10;
+
+---- 6. Monthly Delay Trends
+--SELECT
+--    YEAR,
+--    MONTH,
+--    ROUND(AVG(DEPARTURE_DELAY),2) AS avg_departure_delay
+--FROM Flights
+--WHERE CANCELLED = 0
+--GROUP BY YEAR, MONTH
+--ORDER BY YEAR, MONTH;
+
+---- 7. Cancellation Reasons Summary
+--SELECT
+--    CANCELLATION_REASON,
+--    COUNT(*) AS cancellations
+--FROM Flights
+--WHERE CANCELLED = 1
+--GROUP BY CANCELLATION_REASON
+--ORDER BY cancellations DESC;
+
+---- 8. Longest Delays
+--SELECT
+--    AIRLINE,
+--    FLIGHT_NUMBER,
+--    ORIGIN_AIRPORT,
+--    DESTINATION_AIRPORT,
+--    DEPARTURE_DELAY,
+--    ARRIVAL_DELAY
+--FROM Flights
+--ORDER BY ARRIVAL_DELAY DESC
+--LIMIT 10;
+
+-- 9. Flights with the Longest Taxi-Out Times
+--SELECT
+--  AIRLINE,
+--  FLIGHT_NUMBER,
+--  ORIGIN_AIRPORT,
+--  DESTINATION_AIRPORT,
+--  TAXI_OUT
+--FROM Flights
+--ORDER BY TAXI_OUT DESC
+--LIMIT 10;
+
+-- 10. Monthly Flights Count
+--SELECT
+--  YEAR || '-' || printf('%02d', MONTH) AS Month,
+--  COUNT(*) AS flight_count
+--FROM
+--  Flights
+--GROUP BY
+--  YEAR, MONTH
+--ORDER BY
+--  YEAR, MONTH;
+
+-- 11. Departure vs Arrival Delay
+SELECT DEPARTURE_DELAY, ARRIVAL_DELAY
+FROM Flights
+WHERE DEPARTURE_DELAY IS NOT NULL AND ARRIVAL_DELAY IS NOT NULL
+LIMIT 500; -- or more if you want
